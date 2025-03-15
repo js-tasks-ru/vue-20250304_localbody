@@ -1,9 +1,15 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'CounterApp',
 
-  setup() {},
+  setup() {
+    const counter = ref(0)
+
+    return {
+      counter,
+    }
+  },
 
   template: `
     <div class="counter">
@@ -11,15 +17,18 @@ export default defineComponent({
         class="button button--secondary"
         type="button"
         aria-label="Decrement"
-        disabled
+        @click="counter--"
+        :disabled="!(counter > 0)"
       >➖</button>
 
-      <span class="count" data-testid="count">0</span>
+      <span class="count" data-testid="count">{{ counter }}</span>
 
       <button
         class="button button--secondary"
         type="button"
         aria-label="Increment"
+        @click="counter++"
+        :disabled="!(counter < 5)"
       >➕</button>
     </div>
   `,
